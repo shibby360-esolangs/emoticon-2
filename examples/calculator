@@ -1,0 +1,39 @@
+*operators
+:#-add add
+:#-sub sub
+:#-mult mult
+:#-div div
+:#-exp exp
+:#-func func
+
+:#-n1 :#-n2 :#-op :#-_
+operation(add,sub,mult,div,exp,func)?: :>-op-s
+:?<-op-!=-func-i3
+  first :<- :<-s
+:?|-i3
+number?: :>-n1-n
+:?<-op-!=-func-i2
+  second :<- :<-s
+  number?: :>-n2-n
+:?|-i2
+:#-res
+:?<-op-==-add-i1
+  :M-n1-+-n2
+:<?>-op-==-sub-i1
+  :M-n1-~-n2
+:<?>-op-==-mult-i1
+  :M-n1-*-n2
+:<?>-op-==-div-i1
+  :M-n1-/-n2
+:<?>-op-==-exp-i1
+  :M-n1-^-n2
+:<?>-op-==-func-i1
+  :#-func :#-_ function(sin,cos,etc)?: :>-func-s :#-res
+  :m-${func}-n1
+:>?-i1
+  invalid :<- :<-s
+  operation :<- :<-s
+  :XX-
+:?|-i1
+:#-_:#-_ result: :<- :<-s
+:#-res :<-

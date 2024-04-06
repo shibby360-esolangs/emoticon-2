@@ -1,0 +1,10 @@
+:#-name
+what :<- :<-s 
+is :<- :<-s 
+your :<- :<-s 
+name?: :>-name-s
+:#-_ 
+hello, :<- :<-s 
+:#-name :<- 
+:#-_ . :<-
+*asks.for.name
