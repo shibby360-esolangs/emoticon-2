@@ -21,8 +21,8 @@
 | `_false` | false boolean |
 | `_math` | enables unary math operations |
 | `_list` | empty list - used to copy into variables to create lists |
-| `_mathpi` | pi |
-| `_mathe` | e - Euler's number |
+| `_math_pi` | pi |
+| `_math_e` | e - Euler's number |
 + other than `_`, it is highly recommended that you ***do not*** change these. you might change `_counter`, for like a goto, but definitely not the others.
 ### docs info
 #### parameters
