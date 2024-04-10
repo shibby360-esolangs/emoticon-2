@@ -12,6 +12,8 @@
 + default variable is `_`, set to an empty string
 + system variables(start  with `_`):
 + counter increases as it moves to the next command
+## how to run
++ `./emoticon2.sh (filename)`
 
 | variable | purpose/value |
 | --- | --- |
