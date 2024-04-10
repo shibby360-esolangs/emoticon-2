@@ -1,13 +1,14 @@
 # Tasklist:
 
-import math, re, random, os, json
+import math, re, random, os, json, sys
 math.round = round
 def lnlog(b):
   return math.log(b)
 math.ln = lnlog
 from simpleeval import simple_eval
 f = open('main')
-sourcecode = f.read()
+# sourcecode = f.read()
+sourcode = sys.argv[1]
 f.close()
 variables = {'_': '', '_counter':0, '_true':True, '_false':False, '_math':math, '_list':[], '_math_pi':math.pi, '_math_e':math.e}
 loops = {}
