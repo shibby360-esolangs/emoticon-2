@@ -128,7 +128,10 @@ def emoticon2(code):
       elif ncmd == '||':
         variables[curvar] = variables[curvar][value(prms[0])]
       elif ncmd == '>=>':
-        variables[prms[0]] = variables[curvar].copy()
+        if type(variables[curvar]) == list:
+          variables[prms[0]] = variables[curvar].copy()
+        else:
+          variables[prms[0]] = variables[curvar]
       elif ncmd == '`/':
         del variables[curvar]
         curvar = '_'
