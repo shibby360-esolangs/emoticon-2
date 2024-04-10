@@ -8,7 +8,7 @@ math.ln = lnlog
 from simpleeval import simple_eval
 f = open('main')
 # sourcecode = f.read()
-sourcode = sys.argv[1]
+sourcecode = sys.argv[1]
 f.close()
 variables = {'_': '', '_counter':0, '_true':True, '_false':False, '_math':math, '_list':[], '_math_pi':math.pi, '_math_e':math.e}
 loops = {}
