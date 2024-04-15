@@ -12,9 +12,6 @@
 + default variable is `_`, set to an empty string
 + system variables(start  with `_`):
 + counter increases as it moves to the next command
-## how to run
-+ `./emoticon2.sh (filename)`
-
 | variable | purpose/value |
 | --- | --- |
 | `_` | defualt variable |
@@ -26,6 +23,8 @@
 | `_math_pi` | pi |
 | `_math_e` | e - Euler's number |
 + other than `_`, it is highly recommended that you ***do not*** change these. you might change `_counter`, for like a goto, but definitely not the others.
+## how to run
++ `./emoticon2.sh (filename)`
 ### docs info
 #### parameters
 + `: name` means parameter is variable name
