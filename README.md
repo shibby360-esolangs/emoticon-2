@@ -12,6 +12,7 @@
 + default variable is `_`, set to an empty string
 + system variables(start  with `_`):
 + counter increases as it moves to the next command
+
 | variable | purpose/value |
 | --- | --- |
 | `_` | defualt variable |
