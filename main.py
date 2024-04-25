@@ -1,5 +1,5 @@
 # Tasklist:
-
+# functions
 import math, re, random, os, json, sys
 math.round = round
 def lnlog(b):
@@ -10,33 +10,27 @@ f = open('main')
 # sourcecode = f.read()
 sourcecode = sys.argv[1]
 f.close()
-variables = {'_': '', '_counter':0, '_true':True, '_false':False, '_math':math, '_list':[], '_math_pi':math.pi, '_math_e':math.e}
-loops = {}
-ifs = {}
-curvar = '_'
-def number(st):
-  try:
-    return int(st)
-  except ValueError:
-    return float(st)
-def seval(expr):
-  return simple_eval(expr, names=variables)
-def value(v):
-  if '${' in v:
-    return variables[v[2:-1]]
-  else:
+def emoticon2(code, variables, curvar, ifs, loops, functions):
+  def number(st):
     try:
-      return number(v)
+      return int(st)
     except ValueError:
-      return v
-def upsertVar(val, var):
-  global variables
-  if type(variables[var]) == list:
-    variables[var].append(val)
-  else:
-    variables[var] = val
-def emoticon2(code):
-  global curvar
+      return float(st)
+  def seval(expr):
+    return simple_eval(expr, names=variables)
+  def value(v):
+    if '${' in v:
+      return variables[v[2:-1]]
+    else:
+      try:
+        return number(v)
+      except ValueError:
+        return v
+  def upsertVar(val, var):
+    if type(variables[var]) == list:
+      variables[var].append(val)
+    else:
+      variables[var] = val
   ncode = code.split()
   while variables['_counter'] < len(ncode):
     inccounter = True
@@ -146,6 +140,18 @@ def emoticon2(code):
           variables[curvar].insert(value(prms[1]), variables[prms[0]])
       elif ncmd == '[]v^':
         variables[curvar][value(prms[1])] = variables[prms[0]]
+      elif ncmd == '</>{':
+        endind = ncode.index(':}<>/-' + prms[0], variables['_counter'])
+        functions[prms[0]] = ' '.join(ncode[variables['_counter']+1:endind])
+        variables['_counter'] = endind
+      elif ncmd == '}<>/':
+        pass
+      elif ncmd.startswith('<') and ncmd.endswith('>'):
+        vars = variables.copy()
+        vars['_counter'] = 0
+        for i in range(0, len(prms)):
+          vars['_' + str(i)] = value(prms[i])
+        emoticon2(functions[ncmd[1:-1]], vars, curvar, ifs.copy(), loops.copy(), functions.copy())
       elif ncmd == '{@}':
         print('\n=>\nprogram info:')
         print('current variable: ' + curvar)
@@ -167,4 +173,4 @@ def emoticon2(code):
         upsertVar(cmd, curvar)
     if inccounter:
       variables['_counter'] += 1
-emoticon2(sourcecode)
+emoticon2(sourcecode, {'_': '', '_counter':0, '_true':True, '_false':False, '_math':math, '_list':[], '_math_pi':math.pi, '_math_e':math.e}, '_', {}, {}, {})

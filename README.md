@@ -34,6 +34,7 @@
 + `: value` means you can use `${variablename}` to reference a variable
 + `*` means paramter is optional
 + `upsert` in the context of this documentation is either setting the specified variable to that value, or if the specified variable is a list, appending it to the list.
++ `...` before a parameter means its an arbitrary amount
 
 ## commands
 ### `<-(*opt: value: string)`
@@ -102,6 +103,14 @@ append the value of `valvar` to the current list at `index`. if `index` is omitt
 #### `[]v^-(valvar: name)-(index: value: number)`
 replace the element at `index` with the value of `valvar`. this will crash if the current variable is not a list.
 \~~~~~~~~~~~~~~~~~~~~~
+### functions
+#### `</>{-(funcname: string)`
+make a function
+use `_X` to access parameters, so `_0` for the first `_1` for the second, etc.
+#### `}<>/-(funcname: string)`
+end a function
+#### `<(funcname)>-(...prms: value)`
+call `funcname` with `prms`
 ### `{@}-`
 outputs
 + current variable
