@@ -1,5 +1,4 @@
 # Tasklist:
-# functions
 import math, re, random, os, json, sys
 math.round = round
 def lnlog(b):
@@ -151,7 +150,9 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
         vars['_counter'] = 0
         for i in range(0, len(prms)):
           vars['_' + str(i)] = value(prms[i])
+        vars['_return'] = ''
         emoticon2(functions[ncmd[1:-1]], vars, curvar, ifs.copy(), loops.copy(), functions.copy())
+        upsertVar(vars['_return'], curvar)
       elif ncmd == '{@}':
         print('\n=>\nprogram info:')
         print('current variable: ' + curvar)

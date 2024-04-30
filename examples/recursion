@@ -1,0 +1,12 @@
+:</>{-fac
+  :#-n1 1
+  :?<-_0-<=-n1-i1
+    :#-_return 1 :XX-
+  :>?-i1
+    :#-minus1 :M-_0-~-n1
+    :#-prev :<fac>-${minus1}
+    :#-res :M-_0-*-prev
+    :>=>-_return
+:}<>/-fac
+
+:<fac>-5 :<-

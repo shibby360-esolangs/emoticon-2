@@ -92,7 +92,7 @@ copy the value of the current variable to `newvar`. the current variable remains
 ### `` `/-``
 delete the current variable and switch to `_`
 ### `XX-`
-end program
+end program / exit function 
 ### `??-`
 upserts random number between 0 and 1 to current variable.
 ### lists
@@ -107,6 +107,7 @@ replace the element at `index` with the value of `valvar`. this will crash if th
 #### `</>{-(funcname: string)`
 make a function
 use `_X` to access parameters, so `_0` for the first `_1` for the second, etc.
+`_return` is a special variable that will get upserted to the value of the current variable once the function is completed. it is initially set to an empty string.
 #### `}<>/-(funcname: string)`
 end a function
 #### `<(funcname)>-(...prms: value)`
