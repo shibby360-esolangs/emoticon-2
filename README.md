@@ -31,7 +31,7 @@
 + `: name` means parameter is variable name
 + `: string` means paramter is a string
 + `: number` means paramter is a number
-+ `: value` means you can use `${variablename}` to reference a variable
++ `: value` means you can use `${variablename}` to reference a variable, numbers are plain, and quotes around "strings"
 + `*` means paramter is optional
 + `upsert` in the context of this documentation is either setting the specified variable to that value, or if the specified variable is a list, appending it to the list.
 + `...` before a parameter means its an arbitrary amount
@@ -45,8 +45,8 @@ input. input prompt is value of current variable and value is upsertted to `feed
 sets current variable to `name`. if `name` doesn't already exist, then it creates it with the value of an empty string.
 + variables cannot be just a number
 + variables cannot start with `_`, `$`
-### `M-(var1: name)-(oper: value: string)-(var2: name)`
-(binary) math operation. performs `oper` on `var1` and `var2` and upserts that value to the current variable. valid values for `oper`:
+### `M-(val1: value: number)-(oper: value: string)-(val2: value: number)`
+(binary) math operation. performs `oper` on `val1` and `val2` and upserts that value to the current variable. valid values for `oper`:
 | value for `oper` | operation |
 | --- | --- |
 | + | addition |
@@ -54,8 +54,8 @@ sets current variable to `name`. if `name` doesn't already exist, then it create
 | * | multiplication |
 | / | division |
 | ^ | exponentiation |
-### `m-(func: value: string)-(var: name)`
-(unary) math operation. performs `func` on `var`. upserts value to current variable. valid values for `func`:
+### `m-(func: value: string)-(val: value: number)`
+(unary) math operation. performs `func` on `val`. upserts value to current variable. valid values for `func`:
 | value for `func` | operation |
 | --- | --- |
 | sin | sine |
@@ -71,14 +71,14 @@ loop. `loopid` needs to be the same between both `(` and `)`, `condvarname` is n
 #### `(^)-(loopid: string)`
 continue in loop. returns to the start of the loop. `loopid` should be the same as the loop it's in.
 \~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-### `?-(var1: name)-(oper: value: string)-(var2: name)`
-boolean/comparison. check if `var1` is whatever `oper` is to/than `var2`, then upserts it to the current variable.
+### `?-(val1: value)-(oper: value: string)-(val2: value)`
+boolean/comparison. check if `val1` is whatever `oper` is to/than `val2`, then upserts it to the current variable.
 
-Example: `:?-var1-==-var2` - checks if var1 is equal to var2.
+Example: `:?-${val1}-==-${val2}` - checks if val1 is equal to val2.
 ### ifs
-#### `?<-(var1: name)-(oper: value: string)-(var2: name)-(ifid: string)`
+#### `?<-(val1: value)-(oper: value: string)-(val2: value)-(ifid: string)`
 if condition. similar syntax to `?`, `ifid` is the id of the condition. it should be the same across all the else ifs, and the else. `ifid` should be different across all the if-then-elses.
-#### `<?>-(var1: name)-(oper: value: string)-(var2: name)-(ifid: string)`
+#### `<?>-(val1: value)-(oper: value: string)-(val2: value)-(ifid: string)`
 else if. same syntax as `?<`. `ifid` should be the same as the corresponding if.
 #### `>?-(ifid: string)`
 else condition. `ifid` should be the same as the corresponding if and else ifs.
@@ -98,10 +98,10 @@ upserts random number between 0 and 1 to current variable.
 ### lists
 #### `||-(index: value: number)`
 set the current variables to the value in the current variable at index `index`. So if the current variable is "hello world" and you use `:||-2`, the current variable would become "l". this works with lists as well.
-#### `[]<-(valvar: name)-(*index: value: number)`
-append the value of `valvar` to the current list at `index`. if `index` is omitted, it will add it to the end. this will crash if the current variable is not a list.
-#### `[]v^-(valvar: name)-(index: value: number)`
-replace the element at `index` with the value of `valvar`. this will crash if the current variable is not a list.
+#### `[]<-(val: value)-(*index: value: number)`
+append `val` to the current list at `index`. if `index` is omitted, it will add it to the end. this will crash if the current variable is not a list.
+#### `[]v^-(val: value)-(index: value: number)`
+replace the element at `index` with the value of `val`. this will crash if the current variable is not a list.
 \~~~~~~~~~~~~~~~~~~~~~
 ### functions
 #### `</>{-(funcname: string)`

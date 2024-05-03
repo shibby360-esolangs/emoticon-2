@@ -1,9 +1,3 @@
-*nums
-:#-c1 1
-:#-c2 2
-:#-c3 3
-:#-c4 4
-
 :#-ok
 :#-nm :#-_ name?: :>-nm-s
 :#-bal 0
@@ -19,26 +13,25 @@
   [4]exit :<- :<-n
   which :<- :<-s one?: :>-choice-n
   :#-_
-  :?<-choice-==-c1-i1
+  :?<-${choice}-==-1-i1
     :#-add
     how :<- :<-s much?: :>-add-n
     :#-bal
-    :M-bal-+-add
+    :M-${bal}-+-${add}
   :<?>-choice-==-c2-i1
     :#-wdraw
     how :<- :<-s much?: :>-wdraw-n
-    :?<-wdraw->-bal-i2
+    :?<-${wdraw}->-${bal}-i2
       :#-_ that's :<- :<-s too :<- :<-s much! :<- :<-n
       [enter/return] :>-ok-s
     :>?-i2
       :#-bal
-      :M-bal-~-wdraw
+      :M-${bal}-~-${wdraw}
     :?|-i2
   :<?>-choice-==-c3-i1
-    :#-heads heads :#-tails tails :#-n0 0 :#-n1 1 :#-y y
-    :#-gamble :#-uht :#-chtn :??- :m-round-chtn
+    :#-gamble :#-uht :#-chtn :??- :m-round-${chtn}
     :#-gambling :#-isGambling :#-_true :>=>-isGambling :#-_
-    :?<-bal-==-n0-i6
+    :?<-${bal}-==-0-i6
       you :<- :<-s can't :<- :<-s gamble! :<- :<-n
       [enter/return] :>-ok-s
       :(^)-l1
@@ -48,19 +41,19 @@
       :#-_ GAMBLE :<- :<-n
       balance: :<- :<-s $ :<- :#-bal :<- :<-n :#-_
       how :<- :<-s much :<- :<-s do :<- :<-s you :<- :<-s want :<- :<-s to :<- :<-s gamble?: :>-gamble-n
-      :?<-gamble->-bal-i5
+      :?<-${gamble}->-${bal}-i5
         you :<- :<-s can't :<- :<-s gamble :<- :<-s that :<- :<-s much! :<- :<-n
         [enter/return] :>-ok-s
         :(^)-l2
       :?|-i5
       heads :<- :<-s or :<- :<-s tails?: :>-uht-s 
       :#-chts
-      :?<-chtn-==-n0-i3 heads
+      :?<-chtn-==-0-i3 heads
       :>?-i3 tails
       :?|-i3
       :#-_ flipped :<- :<-s :#-chts :<- :<-n :#-bal
-      :?<-uht-==-chts-i4 :M-bal-+-gamble
-      :>?-i4 :M-bal-~-gamble
+      :?<-${uht}-==-${chts}-i4 :M-${bal}-+-${gamble}
+      :>?-i4 :M-${bal}-~-${gamble}
       :?|-i4
       :#-_ again(y/n)?: :>-gambling-s :#-isGambling :?-gambling-==-y
     :)-l2

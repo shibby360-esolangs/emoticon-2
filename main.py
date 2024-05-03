@@ -1,4 +1,5 @@
 # Tasklist:
+# replace all the variable names with values - math, booleans, and lists
 import math, re, random, os, json, sys
 math.round = round
 def lnlog(b):
@@ -16,7 +17,7 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
     except ValueError:
       return float(st)
   def seval(expr):
-    return simple_eval(expr, names=variables)
+    return simple_eval(expr)
   def value(v):
     if '${' in v:
       return variables[v[2:-1]]
@@ -55,9 +56,9 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
         if curvar not in variables:
           variables[curvar] = ''
       elif ncmd == 'M':
-        upsertVar(seval(prms[0] + value(prms[1]).replace('~','-').replace('^','**') + prms[2]), curvar)
+        upsertVar(seval(value(prms[0]) + value(prms[1]).replace('~','-').replace('^','**') + value(prms[2])), curvar)
       elif ncmd == 'm':
-        upsertVar(seval('_math.'+value(prms[0])+'('+prms[1]+')'), curvar)
+        upsertVar(seval('_math.'+value(prms[0])+'('+value(prms[1])+')'), curvar)
       elif ncmd == '(':
         loops[prms[0]] = variables['_counter']
         if not variables[prms[1]]:
@@ -66,9 +67,9 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
         variables['_counter'] = loops[prms[0]]
         inccounter = False
       elif ncmd == '?':
-        upsertVar(seval(prms[0] + value(prms[1]) + prms[2]), curvar)
+        upsertVar(seval(value(prms[0]) + value(prms[1]) + value(prms[2])), curvar)
       elif ncmd == '?<':
-        if not seval(prms[0] + value(prms[1]) + prms[2]):
+        if not seval(value(prms[0]) + value(prms[1]) + value(prms[2])):
           r = re.compile(r":<\?>.*?"+prms[3])
           nxtcondl = list(filter(r.match, ncode[variables['_counter']+1:]))
           if len(nxtcondl) == 0:
@@ -89,7 +90,7 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
         if prms[3] in ifs:
           variables['_counter'] = ncode.index(':?|-'+prms[3])
           continue
-        if not seval(prms[0] + value(prms[1]) + prms[2]):
+        if not seval(value(prms[0]) + value(prms[1]) + value(prms[2])):
           r = re.compile(r":<\?>.*?"+prms[3])
           nxtcondl = list(filter(r.match, ncode[variables['_counter']+1:]))
           if len(nxtcondl) == 0:
@@ -134,11 +135,13 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
         upsertVar(random.uniform(0,1), curvar)
       elif ncmd == '[]<':
         if len(prms) == 1:
-          variables[curvar].append(variables[prms[0]])
+          variables[curvar].append(value(prms[0]))
         else:
           variables[curvar].insert(value(prms[1]), variables[prms[0]])
       elif ncmd == '[]v^':
-        variables[curvar][value(prms[1])] = variables[prms[0]]
+        variables[curvar][value(prms[1])] = value(prms[0])
+      elif ncmd == '[><]':
+        pass
       elif ncmd == '</>{':
         endind = ncode.index(':}<>/-' + prms[0], variables['_counter'])
         functions[prms[0]] = ' '.join(ncode[variables['_counter']+1:endind])
