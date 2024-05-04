@@ -20,11 +20,16 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
   def value(v):
     if '${' in v:
       return variables[v[2:-1]]
+    elif '"' in v:
+      return v[1:-1]
+    elif v == '':
+      return v
     else:
       try:
         return number(v)
       except ValueError:
-        return v
+        print('unknown ' + v)
+        return
   def upsertVar(val, var):
     if type(variables[var]) == list:
       variables[var].append(val)
