@@ -102,6 +102,8 @@ set the current variables to the value in the current variable at index `index`.
 append `val` to the current list at `index`. if `index` is omitted, it will add it to the end. this will crash if the current variable is not a list.
 #### `[]v^-(val: value)-(index: value: number)`
 replace the element at `index` with the value of `val`. this will crash if the current variable is not a list.
+#### `[><]-(sep: value: string)`
+mash the current variable together with `sep`. this will fail if the current variable is not a list.
 \~~~~~~~~~~~~~~~~~~~~~
 ### functions
 #### `</>{-(funcname: string)`

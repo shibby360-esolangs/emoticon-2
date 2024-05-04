@@ -1,5 +1,4 @@
 # Tasklist:
-# replace all the variable names with values - math, booleans, and lists
 import math, re, random, os, json, sys
 math.round = round
 def lnlog(b):
@@ -141,7 +140,7 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
       elif ncmd == '[]v^':
         variables[curvar][value(prms[1])] = value(prms[0])
       elif ncmd == '[><]':
-        pass
+        variables[curvar] = value(prms[0]).join(variables[curvar])
       elif ncmd == '</>{':
         endind = ncode.index(':}<>/-' + prms[0], variables['_counter'])
         functions[prms[0]] = ' '.join(ncode[variables['_counter']+1:endind])
