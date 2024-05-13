@@ -146,6 +146,8 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
         variables[curvar][value(prms[1])] = value(prms[0])
       elif ncmd == '[><]':
         variables[curvar] = value(prms[0]).join(variables[curvar])
+      elif ncmd == '[X]':
+        variables[curvar].clear()
       elif ncmd == '</>{':
         endind = ncode.index(':}<>/-' + prms[0], variables['_counter'])
         functions[prms[0]] = ' '.join(ncode[variables['_counter']+1:endind])
@@ -181,4 +183,15 @@ def emoticon2(code, variables, curvar, ifs, loops, functions):
         upsertVar(cmd, curvar)
     if inccounter:
       variables['_counter'] += 1
-emoticon2(sourcecode, {'_': '', '_counter':0, '_true':True, '_false':False, '_math':math, '_list':[], '_math_pi':math.pi, '_math_e':math.e}, '_', {}, {}, {})
+emoticon2(sourcecode, 
+          {'_': '', 
+           '_counter':0, 
+           '_true':True, 
+           '_false':False, 
+           '_math':math, 
+           '_list':[], 
+           '_math_pi':math.pi, 
+           '_math_e':math.e,
+           '_space':' ',
+           '_newline':'\n'
+          }, '_', {}, {}, {})
